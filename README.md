@@ -1,25 +1,32 @@
 How to run the test:
 
-  - `git clone https://github.com/afurmanov/test_bronto.git`
-  - `cd test_bronto`
+  - `git clone https://github.com/afurmanov/test_bronto_2.git`
+  - `cd test_bronto_2`
   - `bundle`
+  - Replace in test 'XXX' api placeholder with real API key
   - `bundle exec ruby ./test.rb`
 
-Script will:
- 1. Create copy of message "Green Template Message" with identical HTML and subject,
- the message name is going to be 'New Copied Message [latest_time_stamp]'
- 2. Then it fetches HTML of newly created message
- 3. Saves both original and copied messages HTML content into
- local directory in files:
- `new_copied_message.html` and `original_message.html`
+What script does:
+ 1. Fetch message named "Pumpkins Template Based Message"
+ 2. Call 'updateMessages' API method with id of message from step #1 and same HTML and Text contents
 
-After running the script, compare content of HTML of two messages:
-
-  `diff original_message.html new_copied_message.html` - shows they are identical
-
-Now go to Bronto UI, find new message named 'New Copied Message [latest_time_stamp]' and try
-edit its HTML content. You will see it is shown very differently than original message has, regardless
-it has same HTML content. It misses header image and navigational links.
-
-Note: while script is running, all SOAP communication with Bronto end-point is printed, so
-you should see all API calls on 'low' level.
+Step #2 fails and Bronto response is:
+```
+HTTPI executes HTTP POST using the net_http adapter
+SOAP response (status 200):
+<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <ns2:updateMessagesResponse xmlns:ns2="http://api.bronto.com/v4">
+      <return>
+        <errors>0</errors>
+        <results>
+          <isError>true</isError>
+          <errorCode>605</errorCode>
+          <errorString>Invalid message from template: Pumpkins Template Based Message</errorString>
+        </results>
+      </return>
+    </ns2:updateMessagesResponse>
+  </soap:Body>
+</soap:Envelope>
+````
