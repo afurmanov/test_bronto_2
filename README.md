@@ -3,7 +3,7 @@ How to run the test:
   - `git clone https://github.com/afurmanov/test_bronto_2.git`
   - `cd test_bronto_2`
   - `bundle`
-  - Replace in test 'XXX' api placeholder with real API key
+  - Replace in test.rb 'XXX' with real API key
   - `bundle exec ruby ./test.rb`
 
 What script does:
